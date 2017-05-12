@@ -1,0 +1,3 @@
+[submodule "ircbot"]
+	path = ircbot
+	url = https://github.com/LastOne817/ircbot.git
