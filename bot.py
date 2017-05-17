@@ -2,8 +2,10 @@
 
 from connector.ircmessage import IRCMessage
 from queue import Queue
-from coinone import USD
-
+import functions
+from importlib import reload
+import pyinotify
+import asyncore
 
 class Bot():
     irc = None
@@ -37,10 +39,14 @@ class Bot():
                     pass
 
                 elif message.msgType == 'PRIVMSG':
-                    if message.msg.find('!환율') == 0:
-                        self.irc.sendmsg(message.channel, str(USD()))
-
+                    val = functions.functionlist(message.msg)
+                    if message.msg.find('!업데이트') == 0:
+                        reload(functions)
+                        self.irc.sendmsg(message.channel, "업데이트 완료")
+                    elif val:
+                        self.irc.sendmsg(message.channel, val)
 
 if __name__ == '__main__':
     bot = Bot()
     bot.run()
+
