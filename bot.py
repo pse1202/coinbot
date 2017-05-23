@@ -43,7 +43,7 @@ class Bot():
                         val = functions.functionlist(message.msg)
                         if message.msg.find('!업데이트') == 0:
                             reload(functions)
-                            self.irc.sendmsg(message.channel, "업데이트 완료")
+                            self.irc.sendmsg(message.channel, '업데이트 완료')
                         elif val:
                             self.irc.sendmsg(message.channel, val)
             except:
