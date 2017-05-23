@@ -19,32 +19,35 @@ class Bot():
 
     def run(self):
         while True:
-            packet = self.msgQueue.get()
-            if packet['type'] == 'msg':
-                msg = packet['content']
-                for channel in self.channel_list:
-                    self.irc.sendmsg(channel, msg)
+            try:
+                packet = self.msgQueue.get()
+                if packet['type'] == 'msg':
+                    msg = packet['content']
+                    for channel in self.channel_list:
+                        self.irc.sendmsg(channel, msg)
 
-            elif packet['type'] == 'irc':
-                message = packet['content']
-                print(message)
-                if message.msgType == 'INVITE':
-                    self.irc.joinchan(message.channel)
+                elif packet['type'] == 'irc':
+                    message = packet['content']
+                    print(message)
+                    if message.msgType == 'INVITE':
+                        self.irc.joinchan(message.channel)
 
-                elif message.msgType == 'MODE':
-                    if message.msg == '+o ' + self.irc.botnick:
-                        self.irc.sendmsg(message.channel, '감사합니다 :)')
+                    elif message.msgType == 'MODE':
+                        if message.msg == '+o ' + self.irc.botnick:
+                            self.irc.sendmsg(message.channel, '감사합니다 :)')
 
-                elif message.msgType == 'KICK':
-                    pass
+                    elif message.msgType == 'KICK':
+                        pass
 
-                elif message.msgType == 'PRIVMSG':
-                    val = functions.functionlist(message.msg)
-                    if message.msg.find('!업데이트') == 0:
-                        reload(functions)
-                        self.irc.sendmsg(message.channel, "업데이트 완료")
-                    elif val:
-                        self.irc.sendmsg(message.channel, val)
+                    elif message.msgType == 'PRIVMSG':
+                        val = functions.functionlist(message.msg)
+                        if message.msg.find('!업데이트') == 0:
+                            reload(functions)
+                            self.irc.sendmsg(message.channel, "업데이트 완료")
+                        elif val:
+                            self.irc.sendmsg(message.channel, val)
+            except:
+                continue
 
 if __name__ == '__main__':
     bot = Bot()
