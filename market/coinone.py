@@ -2,6 +2,7 @@ import requests
 
 
 def get_currency(currency):
+    market = 'Coinone'
     currency = currency.upper()
     url = 'https://api.coinone.co.kr/ticker/'
     params = {
@@ -10,8 +11,10 @@ def get_currency(currency):
 
     try:
         json = requests.get(url, params=params).json()
-        result = '[{}/KRW] {}'.format(currency, json['last'])
+        price = json['last']
+
+        result = '[{} | {}] {} KRW'.format(market, currency, price)
     except:
-        result = '[Coinone] 에러!'
+        result = '[{}] 에러!'.format(market)
 
     return result

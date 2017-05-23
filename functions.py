@@ -1,6 +1,6 @@
 import datetime
 import random
-from market import yahoo, coinone
+from market import yahoo, coinone, poloniex
 
 
 def functionlist(msg):
@@ -23,5 +23,9 @@ def functionlist(msg):
         if len(currency) == 0:
             currency = 'BTC'
         return str(coinone.get_currency(currency))
+
+    if msg.find('!폴로') == 0:
+        currencies = msg[4:].strip().split(maxsplit=1)
+        return str(poloniex.get_currency(*currencies))
 
     return None
