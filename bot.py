@@ -4,8 +4,10 @@ from connector.ircmessage import IRCMessage
 from queue import Queue
 import functions
 from importlib import reload
-import pyinotify
-import asyncore
+import traceback
+import builtins
+from IPython.lib import deepreload
+builtins.reload = deepreload.reload
 
 class Bot():
     irc = None
@@ -46,8 +48,8 @@ class Bot():
                             self.irc.sendmsg(message.channel, '업데이트 완료')
                         elif val:
                             self.irc.sendmsg(message.channel, val)
-            except:
-                continue
+            except Exception as err:
+                print(traceback.format_exc())
 
 if __name__ == '__main__':
     bot = Bot()

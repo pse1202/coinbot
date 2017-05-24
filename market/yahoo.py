@@ -14,9 +14,9 @@ def get_currency(currency='USD'):
 
     try:
         json = requests.get(url, params).json()
-        price = json['query']['results']['rate']['Rate']
+        price = float(json['query']['results']['rate']['Rate'])
 
-        result = '[{} | {}] {} KRW'.format(
+        result = '[{} | {}] {:1,.3f} KRW'.format(
             market, currency, price)
     except Exception as err:
         result = '[{}] 에러!'.format(market)

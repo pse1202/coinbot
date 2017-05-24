@@ -12,9 +12,9 @@ def get_currency(from_currency, to_currency='BTC'):
     }
     try:
         json = requests.get(url, params=params).json()
-        price = json['{}_{}'.format(to_currency, from_currency)]['last']
+        price = float(json['{}_{}'.format(to_currency, from_currency)]['last'])
 
-        result = '[{} | {}] {} {}'.format(
+        result = '[{} | {}] {:1,.8f} {}'.format(
             market, from_currency, price, to_currency)
     except:
         result = '[{}] 에러!'.format(market)
