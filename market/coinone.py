@@ -1,6 +1,5 @@
 import requests
 
-
 def get_currency(currency):
     market = 'Coinone'
     currency = currency.upper()
