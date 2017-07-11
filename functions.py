@@ -2,15 +2,11 @@ import datetime
 import random
 from market import yahoo, coinone, poloniex
 
-alias = { '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ETH', '이클': 'ETC', '리플': 'XRP', 'zcash': 'ZEC'
-        , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM', '모네로': 'XMR', '스텔라': 'STR'}
+alias = { '비트': 'BTC', '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ETH', '이클': 'ETC', 
+        '리플': 'XRP', 'zcash': 'ZEC' , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM', '모네로': 'XMR', 
+        '스텔라': 'STR'}
 
 def functionlist(msg):
-    if '!편지' in msg:
-        now = datetime.datetime.now()
-        if (now.month <= 6 or now.day <= 22):
-            return 'https://goo.gl/OlqK2c'
-
     if msg == 'PING':
         return 'PONG'
 

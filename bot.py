@@ -49,7 +49,9 @@ class Bot():
                         elif val:
                             self.irc.sendmsg(message.channel, val)
             except Exception as err:
-                print(traceback.format_exc())
+                with open('error.log','a') as f:
+                    from datetime import datetime
+                    f.write(str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'\n' + str(traceback.format_exc()) + '\n')
 
 if __name__ == '__main__':
     bot = Bot()
