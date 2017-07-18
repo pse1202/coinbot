@@ -6,6 +6,7 @@ import functions
 from importlib import reload
 import traceback
 import builtins
+from connector import setting
 from IPython.lib import deepreload
 builtins.reload = deepreload.reload
 
@@ -48,6 +49,9 @@ class Bot():
                             self.irc.sendmsg(message.channel, '업데이트 완료')
                         elif val:
                             self.irc.sendmsg(message.channel, val)
+                    elif message.msgType == 'NOTICE':
+                        for chan in setting.chanlist:
+                            self.irc.joinchan(chan)
             except Exception as err:
                 with open('error.log','a') as f:
                     from datetime import datetime
