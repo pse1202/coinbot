@@ -11,7 +11,14 @@ class IRCMessage():
     def __init__(self, origMessage):
         parse = re.search(
             '^(?:[:](\S+) )?(\S+)(?: (?!:)(.+?))?(?: [:](.+))?$', origMessage)
-        if parse:
+        if origMessage[:4] == 'PING':
+            self.msgType = 'PING'
+            j = origMessage.find(' ', 6)
+            if j == -1:
+                j = len(origMessage)
+            self.msg = origMessage[6:j]
+            print("PING, " + self.msg)
+        elif parse:
             self.msgType = parse.group(2)
             if self.msgType == 'INVITE':
                 self.sender = parse.group(1)
@@ -29,7 +36,10 @@ class IRCMessage():
                 self.sender = parse.group(1)
                 self.channel = parse.group(4)
             elif self.msgType == 'PING':
+                print("PINGMSG")
                 self.sender = parse.group(4)
+                self.msg = parse.group(4)
+            
         else:
             pass
 
