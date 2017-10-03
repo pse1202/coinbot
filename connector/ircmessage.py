@@ -18,6 +18,8 @@ class IRCMessage():
                 j = len(origMessage)
             self.msg = origMessage[6:j]
             print("PING, " + self.msg)
+        elif origMessage.find('NOTICE') > -1:
+            self.msgType = 'NOTICE'
         elif parse:
             self.msgType = parse.group(2)
             if self.msgType == 'INVITE':

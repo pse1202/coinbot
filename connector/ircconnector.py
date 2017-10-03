@@ -25,8 +25,8 @@ class IRCConnector(threading.Thread):
 
         self.msgQueue = msgQueue
 
-    def ping(self):
-        self.ircsock.send(('PONG :pingis\n').encode())
+    def ping(self, msg):
+        self.ircsock.send(('PONG :' + msg + '\n').encode())
 
     def sendmsg(self, chan, msg):
         self.ircsock.send(('PRIVMSG ' + chan + ' :' + msg + '\n').encode())
@@ -62,6 +62,6 @@ class IRCConnector(threading.Thread):
                 if message.isValid():
                     print(message)
                     if message.msgType == 'PING':
-                        self.ping()
+                        self.ping(message.msg)
                     else:
                         self.msgQueue.put({'type': 'irc', 'content': message})
