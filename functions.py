@@ -28,4 +28,8 @@ def functionlist(msg):
         return "축하드립니다"
     elif msg.find('!감사') >= 0:
         return "감사합니다"
+    elif msg.find('!손절') >= 0:
+        return "영-구-손-실"
+    elif msg.find('!암드') >= 0:
+        return "암숏딱"
     return None

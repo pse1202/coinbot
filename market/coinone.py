@@ -13,7 +13,7 @@ def get_currency(currency):
         result = ""
         json = requests.get(url, params=params).json()
         if currency == 'ALL':
-            for c in ['btc','eth','etc','xrp', 'bch','qtum']:
+            for c in ['btc','eth','etc','xrp', 'bch','qtum', 'ltc']:
                 price = int(json[c]['last'])
                 result += '[{} | {}] {:,} KRW '.format(market, c.upper(), price)
         else:
