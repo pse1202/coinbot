@@ -50,9 +50,9 @@ codes = [
 #   "PART",
 #   "MCO",
 #   "CLOAK",
-#   "VTC",
+  "VTC",
 #   "KORE",
-#   "PIVX",
+  "PIVX",
 #   "DYN",
 #   "RADS",
 #   "SPHR",
@@ -98,7 +98,7 @@ codes = [
 #   "SYS",
 #   "GNT",
 #   "XAUR",
-#   "TIX",
+  "TIX",
 #   "SNGLS",
 #   "PTOY",
 #   "AMP",
@@ -129,6 +129,24 @@ codes = [
 ] # use `copy($('table.highlight tr td.tit em').map((i, e) => e.textContent.replace('/KRW', '')).toArray())` to retrieve
 params_all = ','.join(map(lambda s:code_format.format(to_currency='{to_currency}', from_currency=s), codes))
 
+def format_number(title, input, to_currency):
+    form = '[{title}] {number:,} {to_currency}  '
+    if to_currency == 'KRW':
+        if input > 300:
+            number = int(input)
+        else:
+            number = input
+    elif to_currency == 'BTC':
+        sats = int(input * 100000000)
+        if sats > 10000:
+            number = input
+        else:
+            number = sats
+            to_currency = 'sats'
+    else:
+        number = input
+    
+    return form.format(title=title, number=number, to_currency=to_currency)
 
 def get_currency(from_currency, to_currency='KRW'):
     from_currency = from_currency.upper()
@@ -143,22 +161,24 @@ def get_currency(from_currency, to_currency='KRW'):
             params['codes'] = params_all.format(to_currency=to_currency)
             li = requests.get(url, params=params).json()
             for idx, c in enumerate(codes):
-                price = int(li[idx]['tradePrice'])
-                result += '[{}] {:,} {to_currency}  '.format(c.upper(), price, to_currency=to_currency)
+                formatted = format_number(c.upper(), li[idx]['tradePrice'], to_currency)
+                result += formatted
         elif from_currency == 'TOP5' or from_currency == 'TOP10':
             cut = 5 if from_currency == 'TOP5' else 10
             params['codes'] = params_all.format(to_currency=to_currency)
             li = requests.get(url, params=params).json()
             li = sorted(li, key=lambda currency: currency['accTradePrice24h'], reverse=True)[:cut]
             for c in li:
-                price = c['tradePrice']
                 tit = c['code'].replace('CRIX.UPBIT.{to_currency}-'.format(to_currency=to_currency), '')
-                result += '[{}] {:,} {to_currency}  '.format(tit, price, to_currency=to_currency)
+                formatted = format_number(tit, c['tradePrice'], to_currency)
+                result += formatted
         else:
             params['codes'] = code_format.format(from_currency=from_currency, to_currency=to_currency)
             li = requests.get(url, params=params).json()
-            price = int(li[0]['tradePrice'])
-            result = '[{}] {:,} {to_currency}'.format(from_currency, price, to_currency=to_currency)
+            formatted = format_number(from_currency, li[0]['tradePrice'], to_currency)
+            result = formatted
+    except IndexError as e:
+        result = '[{market}] 에러! : {msg}'.format(market=market, msg=e.__repr__() + ' (존재하지 않는 화폐 가능성)')
     except Exception as e:
         result = '[{market}] 에러! : {msg}'.format(market=market, msg=e.__repr__())
 
