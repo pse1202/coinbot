@@ -38,7 +38,7 @@ def functionlist(msg):
         return str(upbit.get_currency(*currencies))
 
     elif msg.find('!빗썸') >= 0:
-        currency = msg[msg.find('!코인')+4:].strip()
+        currency = msg[msg.find('!빗썸')+4:].strip()
         if len(currency) == 0:
             currency = 'ALL'
         if currency in alias:
