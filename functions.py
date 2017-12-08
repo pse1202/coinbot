@@ -5,7 +5,7 @@ from market import yahoo, coinone, poloniex, upbit, bithumb
 alias = { '비트': 'BTC', '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ETH', '이클': 'ETC', 
         '리플': 'XRP', 'zcash': 'ZEC' , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM',
         '모네로': 'XMR', '스텔라': 'STR', '*': 'all', '$': 'usdt', '라코': 'LTC', '젝': 'ZEC',
-        '파워레인저': 'POWR', '빗골': 'BTG', '해물': 'STRAT'}
+        '파워레인저': 'POWR', '빗골': 'BTG', '해물': 'STRAT', '비캐': 'BCH'}
 
 def functionlist(msg):
     if msg == 'PING':
