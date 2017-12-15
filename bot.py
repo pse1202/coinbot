@@ -10,7 +10,7 @@ from connector import setting
 from IPython.lib import deepreload
 builtins.reload = deepreload.reload
 
-class Bot():
+class Bot(object):
     irc = None
     msgQueue = Queue()
 

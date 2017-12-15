@@ -17,7 +17,7 @@ def get_currency(currency):
         data = json['data']
         if currency == 'ALL':
             result = '{market} >> '.format(market=market)
-            for c in ['btc', 'eth', 'etc', 'xrp', 'bch', 'btg', 'ltc', 'qtum', 'dash', 'xmr', 'zec']:
+            for c in ['btc', 'eth', 'etc', 'xrp', 'bch', 'btg', 'ltc', 'qtum', 'dash', 'xmr', 'zec', 'eos']:
                 price = int(data[c.upper()]['closing_price'])
                 result += '[{}] {:,} KRW  '.format(c.upper(), price)
         else:
