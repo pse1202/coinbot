@@ -1,11 +1,12 @@
 import datetime
 import random
-from market import yahoo, coinone, poloniex, upbit, bithumb
+from market import yahoo, coinone, poloniex, upbit, bithumb, premium
 
 alias = { '비트': 'BTC', '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ETH', '이클': 'ETC', 
         '리플': 'XRP', 'zcash': 'ZEC' , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM',
         '모네로': 'XMR', '스텔라': 'STR', '*': 'all', '$': 'usdt', '라코': 'LTC', '젝': 'ZEC',
-        '파워레인저': 'POWR', '빗골': 'BTG', '해물': 'STRAT', '비캐': 'BCH'}
+        '파워레인저': 'POWR', '빗골': 'BTG', '흑트라': 'STRAT', '히오스': 'EOS', '어미새': 'OMG',
+        '엠쥐': 'OMG'}
 
 def functionlist(msg):
     if msg == 'PING':
@@ -44,6 +45,9 @@ def functionlist(msg):
         if currency in alias:
             currency = alias[currency]
         return str(bithumb.get_currency(currency))
+
+    elif msg.find('!프리미엄') >= 0:
+        return str(premium.get())
 
     elif msg.find('!축하') >= 0 or msg.find('털었습니다') >= 0:
         return "축하드립니다"
