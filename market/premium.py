@@ -11,7 +11,7 @@ def get():
         premiums = requests.get(url).json()
 
         for exchange, exchange_currencies in premiums['premium'].items():
-            result += '[{} | '.format(exchange)
+            result += '[[{} | '.format(exchange.title())
             _sum = 0
             _cnt = 0
             for currency_name, currency in exchange_currencies.items():
@@ -19,7 +19,7 @@ def get():
                 result += '[{}] {:.2%} '.format(currency_name.upper(), premium)
                 _cnt += 1
                 _sum += premium
-            result += '[평균] {:.2%} ]\n'.format(_sum / _cnt)
+            result += '[평균] {:.2%} ]] '.format(_sum / _cnt)
     except Exception as e:
         result = '[{market}] 에러! : {msg}'.format(market=market, msg=e.__repr__())
 
