@@ -1,6 +1,6 @@
 import datetime
 import random
-from market import yahoo, coinone, poloniex, upbit, bithumb, premium
+from market import yahoo, coinone, poloniex, upbit, bithumb, premium, bitflyer
 
 alias = { '비트': 'BTC', '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ETH', '이클': 'ETC', 
         '리플': 'XRP', 'zcash': 'ZEC' , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM',
@@ -45,6 +45,14 @@ def functionlist(msg):
         if currency in alias:
             currency = alias[currency]
         return str(bithumb.get_currency(currency))
+
+    elif msg.find('!빗플') >= 0:
+        currency = msg[msg.find('!빗플')+4:].strip()
+        if len(currency) == 0:
+            currency = 'BTC'
+        if currency in alias:
+            currency = alias[currency]
+        return str(bitflyer.get_currency(currency))
 
     elif msg.find('!프리미엄') >= 0:
         return str(premium.get())
