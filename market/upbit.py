@@ -148,6 +148,8 @@ def format_number(title, input, to_currency):
     
     return form.format(title=title, number=number, to_currency=to_currency)
 
+fake_headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36' }
+
 def get_currency(from_currency, to_currency='KRW'):
     from_currency = from_currency.upper()
     to_currency = to_currency.upper()
@@ -159,14 +161,14 @@ def get_currency(from_currency, to_currency='KRW'):
         }
         if from_currency == 'ALL' or from_currency == '*':
             params['codes'] = params_all.format(to_currency=to_currency)
-            li = requests.get(url, params=params).json()
+            li = requests.get(url, params=params, headers=fake_headers).json()
             for idx, c in enumerate(codes):
                 formatted = format_number(c.upper(), li[idx]['tradePrice'], to_currency)
                 result += formatted
         elif from_currency == 'TOP5' or from_currency == 'TOP10':
             cut = 5 if from_currency == 'TOP5' else 10
             params['codes'] = params_all.format(to_currency=to_currency)
-            li = requests.get(url, params=params).json()
+            li = requests.get(url, params=params, headers=fake_headers).json()
             li = sorted(li, key=lambda currency: currency['accTradePrice24h'], reverse=True)[:cut]
             for c in li:
                 tit = c['code'].replace('CRIX.UPBIT.{to_currency}-'.format(to_currency=to_currency), '')
@@ -174,7 +176,8 @@ def get_currency(from_currency, to_currency='KRW'):
                 result += formatted
         else:
             params['codes'] = code_format.format(from_currency=from_currency, to_currency=to_currency)
-            li = requests.get(url, params=params).json()
+            req = requests.get(url, params=params, headers=fake_headers)
+            li = req.json()
             formatted = format_number(from_currency, li[0]['tradePrice'], to_currency)
             result = formatted
     except IndexError as e:
