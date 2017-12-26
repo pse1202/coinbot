@@ -33,6 +33,8 @@ def functionlist(msg):
 
     elif msg.find('!폴로') >= 0:
         currencies = process_command(msg, '!폴로', multiple=True, default_arg=None)
+        if not currencies:
+            return '!폴로: 코드를 입력해주세요 ex) !폴로 doge btc'
         return str(poloniex.get_currency(*currencies))
 
     elif msg.find('!업빗') >= 0:
@@ -52,6 +54,8 @@ def functionlist(msg):
 
     elif msg.find('!주식') >= 0:
         stock = process_command(msg, '!주식', default_arg=None)
+        if not stock:
+            return '!주식: 코드를 입력해주세요 ex) !주식 우기투'
         return str(korean_stock.get_quote(stock))
 
     elif msg.find('!마켓캡') >= 0:
