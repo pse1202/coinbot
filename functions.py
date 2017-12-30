@@ -14,6 +14,8 @@ def process_command(msg, command_name, multiple=False, default_arg='ALL'):
         for i in range(len(currencies)):
             if currencies[i] in alias:
                 currencies[i] = alias[currencies[i]]
+        if default_arg and len(currencies) == 0:
+            currencies.append(default_arg)
         return currencies
     else:
         currency = msg[msg.find(command_name)+4:].strip()
