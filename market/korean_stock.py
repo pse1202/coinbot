@@ -43,7 +43,7 @@ def get_quote(stock_name):
                     code = lnk.get('href').split('=')[1]
                     code_cache[stock_name] = code
                 else:
-                    raise CodeNotfoundError('코드 발견 실패: "{}" '.format(stock_name))
+                    raise CodeNotfoundError('코드 발견 실패: "{}" , 혹시 {} 를 찾으셨나요?'.format(stock_name, found_name))
 
         info_html = requests.get('http://finance.naver.com/item/sise.nhn?code={}'.format(code)).text
         info_soup = BeautifulSoup(info_html, "html.parser")

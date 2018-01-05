@@ -6,7 +6,7 @@ alias = { '비트': 'BTC', '빗코': 'BTC', '비트코인': 'BTC', '이더': 'ET
         '리플': 'XRP', 'zcash': 'ZEC' , '대시': 'DASH', '리스크': 'LSK', '스팀': 'STEEM',
         '모네로': 'XMR', '스텔라': 'STR', '*': 'all', '$': 'usdt', '라코': 'LTC', '젝': 'ZEC',
         '파워레인저': 'POWR', '빗골': 'BTG', '흑트라': 'STRAT', '히오스': 'EOS', '어미새': 'OMG',
-        '엠쥐': 'OMG'}
+        '엠쥐': 'OMG', '비캐': 'BCH', '테더': 'USDT'}
 
 def process_command(msg, command_name, multiple=False, default_arg='ALL'):
     if multiple: # multiple arg condition like `!폴로 btc usdt`
